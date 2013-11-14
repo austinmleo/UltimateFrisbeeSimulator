@@ -56,34 +56,21 @@ public class Game {
     private class PlayerClick extends JPanel implements MouseListener{
 
 		@Override
-		public void mouseClicked(MouseEvent arg0) {
-			
-			
-		}
+		public void mouseClicked(MouseEvent arg0) { }
 
 		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			
-			
-		}
+		public void mouseEntered(MouseEvent arg0) { }
 
 		@Override
-		public void mouseExited(MouseEvent arg0) {
-			
-			
-		}
+		public void mouseExited(MouseEvent arg0) { }
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
 			System.out.println(arg0.getX() + ", " + arg0.getY());
-			
 		}
 
 		@Override
-		public void mouseReleased(MouseEvent arg0) {
-			
-			
-		}
+		public void mouseReleased(MouseEvent arg0) { }
     }
         
         
