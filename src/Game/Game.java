@@ -17,6 +17,8 @@ public class Game {
 		
 		SuccessfulPasses = 0;
 		InterceptedPasses = 0;
+		
+		initiatePlayers();
 	}
 	
 	
