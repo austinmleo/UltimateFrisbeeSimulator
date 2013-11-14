@@ -34,7 +34,7 @@ public class JUnitTests {
 	}
 	
 	@Test
-	public void PlayerHasFrisbee() {
+	public void PlayerZeroHasFrisbeeAtGameStart() {
 		assertTrue(game.HumanPlayers.get(0).hasFrisbee());
 	}
 	
@@ -53,10 +53,56 @@ public class JUnitTests {
 			assertTrue(test.get(i).getX() != test.get(i + 1).getX());
 			assertTrue(test.get(i).getY() != test.get(i + 1).getY());
 		}
-			
+	}
+	
+	@Test
+	public void playerNoLongerHasFrisbeeAfterThrowingIt() {
+		assertTrue(game.HumanPlayers.get(0).hasFrisbee());
+		game.throwFrisbee();
+		assertFalse(game.HumanPlayers.get(0).hasFrisbee());
+	}
+	
+	@Test public void opposingTeamPlayersMoveToHuamnTeamPlayersOnThrow() {
+		game.HumanPlayers.remove(2);
+		game.HumanPlayers.remove(2);
+		game.HumanPlayers.remove(2);
+		game.ComputerPlayers.remove(1);
+		game.ComputerPlayers.remove(1);
+		game.ComputerPlayers.remove(1);
+		game.ComputerPlayers.remove(1);
 		
+		game.HumanPlayers.get(0).setX(0);
+		game.HumanPlayers.get(0).setY(0);
+		
+		game.HumanPlayers.get(1).setX(100);
+		game.HumanPlayers.get(1).setY(100);
+		
+		game.ComputerPlayers.get(0).setX(200);
+		game.ComputerPlayers.get(0).setY(200);
+		
+		double originalDistance = Math.sqrt(Math.pow((game.HumanPlayers.get(1).getX() - game.ComputerPlayers.get(0).getX()), 2) + Math.pow((game.HumanPlayers.get(1).getY() - game.ComputerPlayers.get(0).getY()), 2));
+		
+		game.throwFrisbee();
+
+		assertTrue(Math.sqrt(Math.pow((game.HumanPlayers.get(1).getX() - game.ComputerPlayers.get(0).getX()), 2) + Math.pow((game.HumanPlayers.get(1).getY() - game.ComputerPlayers.get(0).getY()), 2)) < originalDistance);
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

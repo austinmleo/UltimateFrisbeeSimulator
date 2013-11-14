@@ -53,4 +53,10 @@ public class Game {
 		
 	}
 
+
+	public void throwFrisbee() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
