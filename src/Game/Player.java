@@ -1,15 +1,14 @@
 package Game;
 
 public class Player {
-	private int x;
-	private int y;
-	private boolean hasFrisbee;
+	protected int x;
+	protected int y;
+	protected boolean hasFrisbee;
 	
 	
 	public Player() {
 		x = 0;
 		y = 0;
-		hasFrisbee = true;
 	}
 	
 	public Player(int x, int y) {
@@ -41,6 +40,9 @@ public class Player {
 		this.hasFrisbee = hasFrisbee;
 	}
 
-
+	public void move() {
+		
+	}
+	
 	
 }
