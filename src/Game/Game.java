@@ -1,7 +1,11 @@
 package Game;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.JPanel;
 
 public class Game {
 	private int SuccessfulPasses;
@@ -48,7 +52,43 @@ public class Game {
 		
 	}
 	
+	
+    private class PlayerClick extends JPanel implements MouseListener{
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			
+			
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			System.out.println(arg0.getX() + ", " + arg0.getY());
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			
+			
+		}
+    }
+        
+        
 	public static void main(String[] args) {
+		Game game = new Game();
 		
 		
 	}
