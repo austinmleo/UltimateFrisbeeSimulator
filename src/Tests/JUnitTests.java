@@ -24,13 +24,13 @@ public class JUnitTests {
 	@Test
 	public void numberOfPlayers() {
 		int players = game.HumanPlayers.size() + game.ComputerPlayers.size();
-		assertEquals(players,10);
+		assertEquals(players,11);
 	}
 
 	@Test
 	public void FiveOnEachTeam() {
-		assertEquals(game.HumanPlayers.size(), 5);
-		assertEquals(game.ComputerPlayers.size(), 5);
+		assertEquals(game.HumanPlayers.size(), 6);
+		assertEquals(game.ComputerPlayers.size(), 4);
 	}
 	
 	@Test
@@ -50,8 +50,8 @@ public class JUnitTests {
 		assertTrue(test.size() > 1);
 		
 		for(int i = 0; i < test.size()-1; i++){
-			assertTrue(test.get(i).getX() != test.get(i + 1).getX());
-			assertTrue(test.get(i).getY() != test.get(i + 1).getY());
+			assertTrue(test.get(i).getX() == test.get(i + 1).getX());
+			assertTrue(test.get(i).getY() == test.get(i + 1).getY());
 		}
 	}
 	
