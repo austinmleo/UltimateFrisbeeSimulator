@@ -11,14 +11,18 @@ public class Game {
 	public ArrayList<ComputerPlayer> ComputerPlayers;
 	
 	
+	public Game() {
+		HumanPlayers = new ArrayList<HumanPlayer>();
+		ComputerPlayers = new ArrayList<ComputerPlayer>();
+		
+		SuccessfulPasses = 0;
+		InterceptedPasses = 0;
+	}
+	
 	
 	public void initiatePlayers() {
 		Random random = new Random();
-		
-		HumanPlayers = new ArrayList<HumanPlayer>();
-		ComputerPlayers = new ArrayList<ComputerPlayer>();
 
-		
 		for(int i = 0; i < 5; i++) {
 			int x = random.nextInt() % 800;
 			int y = random.nextInt() % 600;
@@ -38,6 +42,7 @@ public class Game {
 			ComputerPlayer newComputer = new ComputerPlayer(x + computerX, y + computerY);
 			ComputerPlayers.add(newComputer);
 		}
+		
 	}
 	
 	public static void main(String[] args) {
