@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class Game extends JFrame{
 		setSize(1000, 600);
 		setResizable(false);
 		setVisible(true);
+		
+		addMouseListener(new PlayerClick());
 	}
 	
 	
@@ -72,8 +75,9 @@ public class Game extends JFrame{
 		public void mouseExited(MouseEvent arg0) { }
 
 		@Override
-		public void mousePressed(MouseEvent arg0) {
-			System.out.println(arg0.getX() + ", " + arg0.getY());
+		public void mousePressed(MouseEvent event) {
+			Point click = event.getPoint();
+			System.out.println(click);
 		}
 
 		@Override
