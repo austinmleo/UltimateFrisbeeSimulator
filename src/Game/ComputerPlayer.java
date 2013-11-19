@@ -19,6 +19,5 @@ public class ComputerPlayer extends Player {
 		
 	}
 
-// me testing somthing
 
 }
