@@ -1,5 +1,7 @@
 package Game;
 
+import java.awt.Graphics;
+
 public class Player {
 	protected int x;
 	protected int y;
@@ -44,5 +46,7 @@ public class Player {
 		
 	}
 	
-	
+	public void draw(Graphics g) {
+		
+	}
 }

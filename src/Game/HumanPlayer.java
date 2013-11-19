@@ -1,5 +1,8 @@
 package Game;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class HumanPlayer extends Player {
 	
 	public HumanPlayer() {
@@ -15,5 +18,10 @@ public class HumanPlayer extends Player {
 			player.setFrisbee(true);
 			this.setFrisbee(false);
 		}
+	}
+	
+	public void draw(Graphics g) {
+		g.setColor(Color.BLUE);
+		g.drawOval(x, y, 25, 25);
 	}
 }

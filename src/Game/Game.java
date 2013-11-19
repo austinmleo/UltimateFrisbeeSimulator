@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -78,6 +79,7 @@ public class Game extends JFrame{
 		public void mousePressed(MouseEvent event) {
 			Point click = event.getPoint();
 			System.out.println(click);
+
 		}
 
 		@Override
