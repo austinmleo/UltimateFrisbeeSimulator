@@ -1,13 +1,15 @@
 package Game;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Game {
+public class Game extends JFrame{
 	private int SuccessfulPasses;
 	private int InterceptedPasses;
 
@@ -23,6 +25,14 @@ public class Game {
 		InterceptedPasses = 0;
 		
 		initiatePlayers();
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Ultimate Frisbee Simulator v2.67   2nd Edition");
+		setSize(1000, 600);
+		setResizable(false);
+		setVisible(true);
+		
+		addMouseListener(new PlayerClick());
 	}
 	
 	
@@ -32,7 +42,7 @@ public class Game {
 
 		for(int i = 0; i < 5; i++) {
 			int x = random.nextInt() % 800;
-			int y = random.nextInt() % 600;
+			int y = random.nextInt() % 400;
 			
 			if(x < 0)
 				x = -x;
@@ -65,25 +75,25 @@ public class Game {
 		public void mouseExited(MouseEvent arg0) { }
 
 		@Override
-		public void mousePressed(MouseEvent arg0) {
-			System.out.println(arg0.getX() + ", " + arg0.getY());
+		public void mousePressed(MouseEvent event) {
+			Point click = event.getPoint();
+			System.out.println(click);
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent arg0) { }
     }
         
-        
+    public void throwFrisbee() {
+    	// TODO Auto-generated method stub
+    	
+    }
+    
+    
+    
 	public static void main(String[] args) {
 		Game game = new Game();
 		
 		
 	}
-
-
-	public void throwFrisbee() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
