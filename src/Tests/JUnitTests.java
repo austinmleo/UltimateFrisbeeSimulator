@@ -64,31 +64,13 @@ public class JUnitTests {
 	}
 	
 	@Test public void opposingTeamPlayersMoveToHumanTeamPlayersOnThrow() {
-		game.HumanPlayers.remove(2);
-		game.HumanPlayers.remove(2);
-		game.HumanPlayers.remove(2);
-		game.ComputerPlayers.remove(1);
-		game.ComputerPlayers.remove(1);
-		game.ComputerPlayers.remove(1);
-		game.ComputerPlayers.remove(1);
-		
-		game.HumanPlayers.get(0).setX(0);
-		game.HumanPlayers.get(0).setY(0);
-		
-		game.HumanPlayers.get(1).setX(100);
-		game.HumanPlayers.get(1).setY(100);
-		
-		game.ComputerPlayers.get(0).setX(200);
-		game.ComputerPlayers.get(0).setY(200);
-		
 		game.setSelectedPlayer(game.HumanPlayers.get(1));
 		
-		double originalDistance = Math.sqrt(Math.pow((game.HumanPlayers.get(1).getX() - game.ComputerPlayers.get(0).getX()), 2) + Math.pow((game.HumanPlayers.get(1).getY() - game.ComputerPlayers.get(0).getY()), 2));
+		double originalDistance = game.calcDistance(game.HumanPlayers.get(1), game.ComputerPlayers.get(1));
 		
 		game.throwFrisbee(game.getSelectedPlayer());
 
-		assertTrue(Math.sqrt(Math.pow((game.HumanPlayers.get(1).getX() - game.ComputerPlayers.get(0).getX()), 2) + Math.pow((game.HumanPlayers.get(1).getY() - game.ComputerPlayers.get(0).getY()), 2)) < originalDistance);
-		
+		assertTrue(game.calcDistance(game.HumanPlayers.get(1), game.ComputerPlayers.get(1)) < originalDistance);
 	}
 	
 	

@@ -105,8 +105,7 @@ public class Game extends JFrame{
 			
 			ComputerPlayer newComputer = new ComputerPlayer(x + computerX, y + computerY);
 			ComputerPlayers.add(newComputer);
-		}
-		
+		}	
 	}
 	
 	
@@ -136,6 +135,7 @@ public class Game extends JFrame{
     public void throwFrisbee(HumanPlayer selectedPlayer) {
     	Random generator = new Random();
     	int enemyMoveAmount = 0;
+    	Boolean interception = false;
     	double distance = calcDistance(HumanPlayers.get(0), selectedPlayer);
     	HumanPlayers.get(0).hasFrisbee = false;
     	
@@ -180,8 +180,7 @@ public class Game extends JFrame{
     			} else {
     				if(Math.abs(xDist) > moveAmountTemp) {
     					ComputerPlayers.get(i).setX(ComputerPlayers.get(i).getX() - moveAmountTemp);
-    				}
-    				else {
+    				} else {
     					moveAmountTemp = moveAmountTemp - Math.abs(xDist);
     					ComputerPlayers.get(i).setX(HumanPlayers.get(i).getX());
     					if (yDist > 0) {
@@ -191,9 +190,9 @@ public class Game extends JFrame{
     							ComputerPlayers.get(i).setY(HumanPlayers.get(i).getY());
     						}
     					} else {
-    						if(moveAmountTemp != 0 && Math.abs(yDist) > moveAmountTemp)
+    						if(moveAmountTemp != 0 && Math.abs(yDist) > moveAmountTemp) {
     							ComputerPlayers.get(i).setY(ComputerPlayers.get(i).getY() - moveAmountTemp);
-    						else {
+    						} else {
     							ComputerPlayers.get(i).setY(HumanPlayers.get(i).getY());
     						}
     					}
@@ -201,22 +200,66 @@ public class Game extends JFrame{
     			}
 
     		} else { // y picked first.
-
+    			if (yDist > 0) { 
+    				if (yDist > moveAmountTemp) {
+    					ComputerPlayers.get(i).setY(ComputerPlayers.get(i).getY() + moveAmountTemp);
+    				} else {
+    					moveAmountTemp = moveAmountTemp - yDist;
+    					ComputerPlayers.get(i).setY(HumanPlayers.get(i).getY());
+    					if (xDist > 0) {
+    						if(moveAmountTemp != 0 && xDist > moveAmountTemp) {
+    							ComputerPlayers.get(i).setX(ComputerPlayers.get(i).getX() + moveAmountTemp);
+    						} else {
+    							ComputerPlayers.get(i).setX(HumanPlayers.get(i).getX());
+    						}
+    					} else {
+    						if(moveAmountTemp != 0 && Math.abs(xDist) > moveAmountTemp)
+    							ComputerPlayers.get(i).setX(ComputerPlayers.get(i).getX() - moveAmountTemp);
+    						else {
+    							ComputerPlayers.get(i).setX(HumanPlayers.get(i).getX());
+    						}
+    					}
+    				}
+    			} else {
+    				if(Math.abs(yDist) > moveAmountTemp) {
+    					ComputerPlayers.get(i).setY(ComputerPlayers.get(i).getY() - moveAmountTemp);
+    				} else {
+    					moveAmountTemp = moveAmountTemp - Math.abs(yDist);
+    					ComputerPlayers.get(i).setY(HumanPlayers.get(i).getY());
+    					if (xDist > 0) {
+    						if(moveAmountTemp != 0 && xDist > moveAmountTemp) {
+    							ComputerPlayers.get(i).setX(ComputerPlayers.get(i).getX() + moveAmountTemp);
+    						} else {
+    							ComputerPlayers.get(i).setX(HumanPlayers.get(i).getX());
+    						}
+    					} else {
+    						if(moveAmountTemp != 0 && Math.abs(xDist) > moveAmountTemp) {
+    							ComputerPlayers.get(i).setX(ComputerPlayers.get(i).getX() - moveAmountTemp);
+    						} else {
+    							ComputerPlayers.get(i).setX(HumanPlayers.get(i).getX());
+    						}
+    					}
+    				}
+    			}
     		}
     	}
     	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	//selectedPlayer.hasFrisbee = true;
+    	for (int i = 0; i < 5; i++) {
+    		double dist = calcDistance(selectedPlayer, ComputerPlayers.get(i));
+    		if (dist < 5)
+    			interception = true;
+    	}
+    
+    	if (!interception) {
+    		selectedPlayer.hasFrisbee = true;
+    	}
     }
     
     public double calcDistance(HumanPlayer thrower, HumanPlayer catcher) {
+    	return Math.sqrt(Math.pow((thrower.getX() - catcher.getX()), 2) + Math.pow((thrower.getY() - catcher.getY()), 2));
+    }
+    
+    public double calcDistance(HumanPlayer thrower, ComputerPlayer catcher) {
     	return Math.sqrt(Math.pow((thrower.getX() - catcher.getX()), 2) + Math.pow((thrower.getY() - catcher.getY()), 2));
     }
     
