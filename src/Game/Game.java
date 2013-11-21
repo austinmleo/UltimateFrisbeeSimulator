@@ -36,8 +36,33 @@ public class Game extends JFrame{
 		setVisible(true);
 		
 		addMouseListener(new PlayerClick());
+		
+		
+		Field field = new Field();
+		add(field);
+		field.paintComponent(super.getGraphics());
 	}
 	
+	public class Field extends JPanel{
+		public Field() {
+			setBackground(Color.GREEN);
+		}
+		
+
+		public void paintComponent(Graphics g) {
+			super.paintComponents(g);
+			g.setColor(Color.BLUE);
+			for(HumanPlayer p : HumanPlayers) {
+				g.fillOval(p.getX(), p.getY(), 25, 25);
+			}
+			
+			g.setColor(Color.RED);
+			for(ComputerPlayer p : ComputerPlayers) {
+				g.fillOval(p.getX(), p.getY(), 25, 25);
+			}
+		}		
+	}
+
 	
 	public void initiatePlayers() {
 		
