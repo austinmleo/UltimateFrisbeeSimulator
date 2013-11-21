@@ -58,7 +58,8 @@ public class JUnitTests {
 	@Test
 	public void playerNoLongerHasFrisbeeAfterThrowingIt() {
 		assertTrue(game.HumanPlayers.get(0).hasFrisbee());
-		game.throwFrisbee();
+		game.setSelectedPlayer(game.HumanPlayers.get(1));
+		game.throwFrisbee(game.getSelectedPlayer());
 		assertFalse(game.HumanPlayers.get(0).hasFrisbee());
 	}
 	
@@ -80,9 +81,11 @@ public class JUnitTests {
 		game.ComputerPlayers.get(0).setX(200);
 		game.ComputerPlayers.get(0).setY(200);
 		
+		game.setSelectedPlayer(game.HumanPlayers.get(1));
+		
 		double originalDistance = Math.sqrt(Math.pow((game.HumanPlayers.get(1).getX() - game.ComputerPlayers.get(0).getX()), 2) + Math.pow((game.HumanPlayers.get(1).getY() - game.ComputerPlayers.get(0).getY()), 2));
 		
-		game.throwFrisbee();
+		game.throwFrisbee(game.getSelectedPlayer());
 
 		assertTrue(Math.sqrt(Math.pow((game.HumanPlayers.get(1).getX() - game.ComputerPlayers.get(0).getX()), 2) + Math.pow((game.HumanPlayers.get(1).getY() - game.ComputerPlayers.get(0).getY()), 2)) < originalDistance);
 		
