@@ -69,8 +69,8 @@ public class Game extends JFrame{
 		Random random = new Random();
 
 		for(int i = 0; i < 5; i++) {
-			int x = random.nextInt() % 800;
-			int y = random.nextInt() % 400;
+			int x = random.nextInt() % 1001;
+			int y = random.nextInt() % 487;
 			
 			if(x < 0)
 				x = -x;
@@ -83,6 +83,7 @@ public class Game extends JFrame{
 				HumanPlayers.get(0).hasFrisbee = true;
 			}
 			
+			//Need code to be sure the computers don't spawn off the field.
 			
 			int computerX = random.nextInt() % 100;
 			int computerY = random.nextInt() % 100;
@@ -124,12 +125,91 @@ public class Game extends JFrame{
     }
         
     public void throwFrisbee(HumanPlayer selectedPlayer) {
-    	double originalDistance = Math.sqrt(Math.pow((HumanPlayers.get(0).getX() - selectedPlayer.getX()), 2) + Math.pow((HumanPlayers.get(0).getY() - selectedPlayer.getY()), 2));
+    	Random generator = new Random();
+    	int enemyMoveAmount = 0;
+    	double distance = calcDistance(HumanPlayers.get(0), selectedPlayer);
     	HumanPlayers.get(0).hasFrisbee = false;
-    	selectedPlayer.hasFrisbee = true;
+    	
+    	if (distance > 800)
+    		enemyMoveAmount = 90;
+    	else if (600 < distance && distance < 800) 
+    		enemyMoveAmount = 70;
+       	else if (400 < distance && distance < 600) 
+    		enemyMoveAmount = 50;
+       	else if (100 < distance && distance < 400) 
+    		enemyMoveAmount = 30;
+       	else if (distance < 100) 
+    		enemyMoveAmount = 10;
+    	
+    	for (int i = 0; i < 5; i++) {
+    		int moveAmountTemp = enemyMoveAmount;
+    		int xOryFirst = generator.nextInt(1); //0 for x first.
+    		int yDist = HumanPlayers.get(i).getY() - ComputerPlayers.get(i).getY();
+    		int xDist = HumanPlayers.get(i).getX() - ComputerPlayers.get(i).getX();
+
+    		if (xOryFirst == 0) { //x picked first
+    			if (xDist > 0) { 
+    				if (xDist > moveAmountTemp) {
+    					ComputerPlayers.get(i).setX(ComputerPlayers.get(i).getX() + moveAmountTemp);
+    				} else {
+    					moveAmountTemp = moveAmountTemp - xDist;
+    					ComputerPlayers.get(i).setX(HumanPlayers.get(i).getX());
+    					if (yDist > 0) {
+    						if(moveAmountTemp != 0 && yDist > moveAmountTemp) {
+    							ComputerPlayers.get(i).setY(ComputerPlayers.get(i).getY() + moveAmountTemp);
+    						} else {
+    							ComputerPlayers.get(i).setY(HumanPlayers.get(i).getY());
+    						}
+    					} else {
+    						if(moveAmountTemp != 0 && Math.abs(yDist) > moveAmountTemp)
+    							ComputerPlayers.get(i).setY(ComputerPlayers.get(i).getY() - moveAmountTemp);
+    						else {
+    							ComputerPlayers.get(i).setY(HumanPlayers.get(i).getY());
+    						}
+    					}
+    				}
+    			} else {
+    				if(Math.abs(xDist) > moveAmountTemp) {
+    					ComputerPlayers.get(i).setX(ComputerPlayers.get(i).getX() - moveAmountTemp);
+    				}
+    				else {
+    					moveAmountTemp = moveAmountTemp - Math.abs(xDist);
+    					ComputerPlayers.get(i).setX(HumanPlayers.get(i).getX());
+    					if (yDist > 0) {
+    						if(moveAmountTemp != 0 && yDist > moveAmountTemp) {
+    							ComputerPlayers.get(i).setY(ComputerPlayers.get(i).getY() + moveAmountTemp);
+    						} else {
+    							ComputerPlayers.get(i).setY(HumanPlayers.get(i).getY());
+    						}
+    					} else {
+    						if(moveAmountTemp != 0 && Math.abs(yDist) > moveAmountTemp)
+    							ComputerPlayers.get(i).setY(ComputerPlayers.get(i).getY() - moveAmountTemp);
+    						else {
+    							ComputerPlayers.get(i).setY(HumanPlayers.get(i).getY());
+    						}
+    					}
+    				}
+    			}
+
+    		} else { // y picked first.
+
+    		}
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	//selectedPlayer.hasFrisbee = true;
     }
     
-    
+    public double calcDistance(HumanPlayer thrower, HumanPlayer catcher) {
+    	return Math.sqrt(Math.pow((thrower.getX() - catcher.getX()), 2) + Math.pow((thrower.getY() - catcher.getY()), 2));
+    }
     
 	public static void main(String[] args) {
 		Game game = new Game();
