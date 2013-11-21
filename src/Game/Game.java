@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 public class Game extends JFrame{
 	private int SuccessfulPasses;
 	private int InterceptedPasses;
+	private HumanPlayer selectedPlayer;
 
 	public ArrayList<HumanPlayer> HumanPlayers;
 	public ArrayList<ComputerPlayer> ComputerPlayers;
@@ -31,7 +32,7 @@ public class Game extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ultimate Frisbee Simulator v2.67   2nd Edition");
 		setSize(1000, 600);
-		setResizable(false);git 
+		setResizable(false);
 		setVisible(true);
 		
 		addMouseListener(new PlayerClick());
@@ -53,6 +54,9 @@ public class Game extends JFrame{
 				
 			HumanPlayer newHuman = new HumanPlayer(x + 100, y + 100);
 			HumanPlayers.add(newHuman);
+			if(i == 0){
+				HumanPlayers.get(0).hasFrisbee = true;
+			}
 			
 			
 			int computerX = random.nextInt() % 100;
@@ -68,7 +72,9 @@ public class Game extends JFrame{
     private class PlayerClick extends JPanel implements MouseListener{
 
 		@Override
-		public void mouseClicked(MouseEvent arg0) { }
+		public void mouseClicked(MouseEvent arg0) { 
+			
+		}
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) { }
@@ -92,9 +98,10 @@ public class Game extends JFrame{
 		public void mouseReleased(MouseEvent arg0) { }
     }
         
-    public void throwFrisbee() {
-    	// TODO Auto-generated method stub
-    	
+    public void throwFrisbee(HumanPlayer selectedPlayer) {
+    	double originalDistance = Math.sqrt(Math.pow((HumanPlayers.get(0).getX() - selectedPlayer.getX()), 2) + Math.pow((HumanPlayers.get(0).getY() - selectedPlayer.getY()), 2));
+    	HumanPlayers.get(0).hasFrisbee = false;
+    	selectedPlayer.hasFrisbee = true;
     }
     
     
@@ -102,5 +109,15 @@ public class Game extends JFrame{
 	public static void main(String[] args) {
 		Game game = new Game();
 
+	}
+
+
+	public HumanPlayer getSelectedPlayer() {
+		return selectedPlayer;
+	}
+
+
+	public void setSelectedPlayer(HumanPlayer selectedPlayer) {
+		this.selectedPlayer = selectedPlayer;
 	}
 }
