@@ -5,20 +5,26 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Game extends JFrame{
 	private int SuccessfulPasses;
-	private int InterceptedPasses;
+	private int InterceptedPasses;	
+	public static final int SIZE = 25;
+	
 	private HumanPlayer selectedPlayer;
 
 	public ArrayList<HumanPlayer> HumanPlayers;
 	public ArrayList<ComputerPlayer> ComputerPlayers;
-	
+
 	
 	public Game() {
 		HumanPlayers = new ArrayList<HumanPlayer>();
@@ -44,21 +50,30 @@ public class Game extends JFrame{
 	}
 	
 	public class Field extends JPanel{
-		public Field() {
-			setBackground(Color.GREEN);
-		}
 		
+		private BufferedImage image;
+		
+		public Field() {
+			try {
+				image = ImageIO.read(new File("FieldLayout.png"));
+			} catch (IOException ex) {
+				ex.getLocalizedMessage();
+			}
+		}
 
 		public void paintComponent(Graphics g) {
 			super.paintComponents(g);
+			
+			g.drawImage(image, 0,  0, null);
+			
 			g.setColor(Color.BLUE);
 			for(HumanPlayer p : HumanPlayers) {
-				g.fillOval(p.getX(), p.getY(), 25, 25);
+				g.fillOval(p.getX(), p.getY(), SIZE, SIZE);
 			}
 			
 			g.setColor(Color.RED);
 			for(ComputerPlayer p : ComputerPlayers) {
-				g.fillOval(p.getX(), p.getY(), 25, 25);
+				g.fillOval(p.getX(), p.getY(), SIZE, SIZE);
 			}
 		}		
 	}
@@ -112,12 +127,6 @@ public class Game extends JFrame{
 		public void mousePressed(MouseEvent event) {
 			Point click = event.getPoint();
 			System.out.println(click);
-			
-
-			/*for(HumanPlayer player : HumanPlayers) {
-				player.draw(super.getGraphics());
-			}*/
-
 		}
 
 		@Override
