@@ -29,7 +29,7 @@ public class Game extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ultimate Frisbee Simulator v2.67   2nd Edition");
 		setSize(1000, 600);
-		setResizable(false);
+		setResizable(false);git 
 		setVisible(true);
 		
 		addMouseListener(new PlayerClick());
