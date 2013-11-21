@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -79,6 +80,11 @@ public class Game extends JFrame{
 		public void mousePressed(MouseEvent event) {
 			Point click = event.getPoint();
 			System.out.println(click);
+			
+
+			/*for(HumanPlayer player : HumanPlayers) {
+				player.draw(super.getGraphics());
+			}*/
 
 		}
 
@@ -95,7 +101,6 @@ public class Game extends JFrame{
     
 	public static void main(String[] args) {
 		Game game = new Game();
-		
-		
+
 	}
 }

@@ -22,6 +22,6 @@ public class HumanPlayer extends Player {
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.BLUE);
-		g.drawOval(x, y, 25, 25);
+		g.fillOval(this.x, this.y, 25, 25);
 	}
 }
