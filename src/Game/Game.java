@@ -66,9 +66,15 @@ public class Game extends JFrame{
 			
 			g.drawImage(image, 0,  0, null);
 			
-			g.setColor(Color.BLUE);
+			
 			for(HumanPlayer p : HumanPlayers) {
+				g.setColor(Color.BLUE);
 				g.fillOval(p.getX(), p.getY(), SIZE, SIZE);
+				if (p == HumanPlayers.get(0)){
+					g.setColor(Color.YELLOW);
+					g.drawString("X", p.getX()+10, p.getY()+17);
+					//g.fillOval(p.getX()-5, p.getY()-5, SIZE-10, SIZE-10);
+				}
 			}
 			
 			g.setColor(Color.RED);
