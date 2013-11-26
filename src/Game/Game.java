@@ -37,8 +37,8 @@ public class Game extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ultimate Frisbee Simulator v2.67   2nd Edition");
-		setSize(1000, 600);
-		setResizable(false);
+		setSize(1001, 487);
+		setResizable(true);
 		setVisible(true);
 		
 		addMouseListener(new PlayerClick());
@@ -50,6 +50,9 @@ public class Game extends JFrame{
 	}
 	
 	public class Field extends JPanel{
+		
+		// Cyndi said to try placing the field imagine into a panel
+		// and the placing that panel into the frame layout.center
 		
 		private BufferedImage image;
 		
@@ -92,18 +95,38 @@ public class Game extends JFrame{
 			if(y < 1)
 				y = -y;
 				
-			HumanPlayer newHuman = new HumanPlayer(x + 100, y + 100);
+			HumanPlayer newHuman = new HumanPlayer(x, y);
 			HumanPlayers.add(newHuman);
+			
+			System.out.println(newHuman.getX() + " " + newHuman.getY());
+			
 			if(i == 0){
 				HumanPlayers.get(0).hasFrisbee = true;
 			}
 			
-			//Need code to be sure the computers don't spawn off the field.
+			Boolean computerPlayerAcceptable = false;
+
+			while(!computerPlayerAcceptable) {
+				
+				int computerX = random.nextInt() % 100;
+				int computerY = random.nextInt() % 100;
+				
+				if(x + computerX < 1001 && x + computerX > 0) {
+					x = x + computerX;
+				} else
+					x = x - computerX;
+				
+				if(y + computerY < 487 && x + computerY > 0) {
+					y = y + computerY;
+				} else
+					y = y - computerY;
+				
+				if (x > 0 && x < 1001 && y > 0 && y < 487) {
+					computerPlayerAcceptable = true;
+				}
+			}
 			
-			int computerX = random.nextInt() % 100;
-			int computerY = random.nextInt() % 100;
-			
-			ComputerPlayer newComputer = new ComputerPlayer(x + computerX, y + computerY);
+			ComputerPlayer newComputer = new ComputerPlayer(x, y);
 			ComputerPlayers.add(newComputer);
 		}	
 	}
