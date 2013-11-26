@@ -37,9 +37,10 @@ public class Game extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Ultimate Frisbee Simulator v2.67   2nd Edition");
-		setSize(1001, 487);
+		setSize(1009, 487);
 		setResizable(true);
 		setVisible(true);
+		setSelectedPlayer(null);
 		
 		addMouseListener(new PlayerClick());
 		
@@ -71,12 +72,17 @@ public class Game extends JFrame{
 			
 			
 			for(HumanPlayer p : HumanPlayers) {
-				g.setColor(Color.BLUE);
-				g.fillOval(p.getX(), p.getY(), SIZE, SIZE);
-				if (p == HumanPlayers.get(0)){
-					g.setColor(Color.YELLOW);
-					g.drawString("X", p.getX()+10, p.getY()+17);
-					//g.fillOval(p.getX()-5, p.getY()-5, SIZE-10, SIZE-10);
+				if (p == selectedPlayer){
+					g.setColor(Color.GREEN);
+					g.fillOval(p.getX(), p.getY(), SIZE, SIZE);
+				}else{
+					g.setColor(Color.BLUE);
+					g.fillOval(p.getX(), p.getY(), SIZE, SIZE);
+					if (p == HumanPlayers.get(0)){
+						g.setColor(Color.YELLOW);
+						g.drawString("X", p.getX()+10, p.getY()+17);
+						//g.fillOval(p.getX()-5, p.getY()-5, SIZE-10, SIZE-10);
+					}
 				}
 			}
 			
@@ -142,8 +148,17 @@ public class Game extends JFrame{
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) { 
-			
-		}
+			Point click = arg0.getPoint();
+			System.out.println("Getting location");
+			for (HumanPlayer p : HumanPlayers){
+				if(calcDistance(p, click) < 50){
+					selectedPlayer = p;
+					updateScreen();
+					
+				}
+			}
+			System.out.println("Selected player is" + getSelectedPlayer());
+		} 
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) { }
@@ -292,6 +307,10 @@ public class Game extends JFrame{
     	return Math.sqrt(Math.pow((thrower.getX() - catcher.getX()), 2) + Math.pow((thrower.getY() - catcher.getY()), 2));
     }
     
+    public double calcDistance(HumanPlayer thrower, Point p) {
+    	return Math.sqrt(Math.pow((thrower.getX() - p.getX()), 2) + Math.pow((thrower.getY() - p.getY()), 2));
+    }
+    
 	public static void main(String[] args) {
 		Game game = new Game();
 
@@ -305,5 +324,9 @@ public class Game extends JFrame{
 
 	public void setSelectedPlayer(HumanPlayer selectedPlayer) {
 		this.selectedPlayer = selectedPlayer;
+	}
+	
+	public void updateScreen(){
+		repaint();
 	}
 }
