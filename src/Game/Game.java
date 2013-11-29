@@ -23,6 +23,7 @@ public class Game extends JFrame{
 	
 	
 	
+	
 	private int SuccessfulPasses;
 	private int InterceptedPasses;	
 	public static final int SIZE = 25;
@@ -49,13 +50,13 @@ public class Game extends JFrame{
 		topFrame.setVisible(true);
 		setSelectedPlayer(null);
 		
-		addMouseListener(new PlayerClick());
+		topFrame.addMouseListener(new PlayerClick());
 		
 		topFrame.setLayout(new BorderLayout());
 		//topFrame.add(field, BorderLayout.CENTER);
 		//Field field = new Field();
 		topFrame.add(field, BorderLayout.CENTER);
-		field.paintComponent(super.getGraphics());
+		//field.paintComponent(super.getGraphics());
 	}
 	
 	
@@ -164,7 +165,7 @@ public class Game extends JFrame{
 			for (HumanPlayer p : HumanPlayers){
 				if(calcDistance(p, click) < 50){
 					selectedPlayer = p;
-					updateScreen();
+					updateScreen(topFrame);
 					
 				}
 			}
@@ -337,7 +338,7 @@ public class Game extends JFrame{
 		this.selectedPlayer = selectedPlayer;
 	}
 	
-	public void updateScreen(){
-		repaint();
+	public void updateScreen(JFrame frame) {
+		frame.repaint();
 	}
 }
