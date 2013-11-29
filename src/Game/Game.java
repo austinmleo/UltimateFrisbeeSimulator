@@ -13,12 +13,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Game extends JFrame{
 	
 	JFrame topFrame = new JFrame();
+	JButton passButton;
 	Field field = new Field();
 	
 	
@@ -45,7 +47,7 @@ public class Game extends JFrame{
 		
 		topFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		topFrame.setTitle("Ultimate Frisbee Simulator v2.67   2nd Edition");
-		topFrame.setSize(1018, 525);
+		topFrame.setSize(1030, 525);
 		topFrame.setResizable(true);
 		topFrame.setVisible(true);
 		setSelectedPlayer(null);
@@ -57,7 +59,16 @@ public class Game extends JFrame{
 		//Field field = new Field();
 		topFrame.add(field, BorderLayout.CENTER);
 		//field.paintComponent(super.getGraphics());
+	
+		JPanel buttonPanel = new JPanel();
+		passButton = new JButton("Finaliz Pass");
+		buttonPanel.add(passButton);
+		topFrame.add(buttonPanel, BorderLayout.SOUTH);
+	
+	
 	}
+	
+	
 	
 	
 	
