@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -16,6 +17,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Game extends JFrame{
+	
+	JFrame topFrame = new JFrame();
+	Field field = new Field();
+	
+	
+	
 	private int SuccessfulPasses;
 	private int InterceptedPasses;	
 	public static final int SIZE = 25;
@@ -35,20 +42,24 @@ public class Game extends JFrame{
 		
 		initiatePlayers();
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Ultimate Frisbee Simulator v2.67   2nd Edition");
-		setSize(1009, 487);
-		setResizable(true);
-		setVisible(true);
+		topFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		topFrame.setTitle("Ultimate Frisbee Simulator v2.67   2nd Edition");
+		topFrame.setSize(1018, 525);
+		topFrame.setResizable(true);
+		topFrame.setVisible(true);
 		setSelectedPlayer(null);
 		
 		addMouseListener(new PlayerClick());
 		
-		
-		Field field = new Field();
-		add(field);
+		topFrame.setLayout(new BorderLayout());
+		//topFrame.add(field, BorderLayout.CENTER);
+		//Field field = new Field();
+		topFrame.add(field, BorderLayout.CENTER);
 		field.paintComponent(super.getGraphics());
 	}
+	
+	
+	
 	
 	public class Field extends JPanel{
 		
