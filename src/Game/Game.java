@@ -171,8 +171,6 @@ public class Game extends JFrame{
 			HumanPlayer newHuman = new HumanPlayer(x, y);
 			HumanPlayers.add(newHuman);
 			
-			System.out.println(newHuman.getX() + " " + newHuman.getY());
-			
 			if(i == 0){
 				HumanPlayers.get(0).hasFrisbee = true;
 			}
@@ -210,7 +208,6 @@ public class Game extends JFrame{
 		@Override
 		public void mouseClicked(MouseEvent arg0) { 
 			Point click = arg0.getPoint();
-			//System.out.println("Getting location");
 			for (HumanPlayer p : HumanPlayers){
 				if(calcDistance(p, click) < 50){
 					if(p != HumanPlayers.get(0)){
@@ -219,7 +216,6 @@ public class Game extends JFrame{
 					}
 				}
 			}
-			//System.out.println("Selected player is" + getSelectedPlayer());
 		} 
 
 		@Override
@@ -231,7 +227,6 @@ public class Game extends JFrame{
 		@Override
 		public void mousePressed(MouseEvent event) {
 			Point click = event.getPoint();
-			System.out.println(click);
 		}
 
 		@Override
@@ -354,17 +349,14 @@ public class Game extends JFrame{
     		double dist = calcDistance(selectedPlayer, ComputerPlayers.get(i));
     		if (dist < 10){
     			interception = true;
-    			System.out.println("Intercepted");
     			resultString = "Intercepted";
     		}
     	}
     
     	if (!interception) {
     		selectedPlayer.hasFrisbee = true;
-    		System.out.println("Not Intercepted");
     		resultString = "Not Intercepted";
     	}
-    	System.out.println("Frisbee thrown");
     	updateDisplay();
     	updateScreen(topFrame);
     	
