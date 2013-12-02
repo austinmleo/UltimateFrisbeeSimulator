@@ -246,15 +246,15 @@ public class Game extends JFrame{
     	HumanPlayers.get(0).hasFrisbee = false;
     	
     	if (distance > 800)
-    		enemyMoveAmount = 90;
+    		enemyMoveAmount = 100;
     	else if (600 < distance && distance < 800) 
-    		enemyMoveAmount = 70;
+    		enemyMoveAmount = 90;
        	else if (400 < distance && distance < 600) 
-    		enemyMoveAmount = 50;
+    		enemyMoveAmount = 65;
        	else if (100 < distance && distance < 400) 
-    		enemyMoveAmount = 30;
+    		enemyMoveAmount = 40;
        	else if (distance < 100) 
-    		enemyMoveAmount = 10;
+    		enemyMoveAmount = 15;
     	
     	for (int i = 0; i < 5; i++) {
     		int moveAmountTemp = enemyMoveAmount;
