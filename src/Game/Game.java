@@ -2,8 +2,11 @@ package Game;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -15,12 +18,16 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class Game extends JFrame{
 	
 	JFrame topFrame = new JFrame();
 	JButton passButton;
+	JButton newButton;
+	String resultString;
 	Field field = new Field();
 	
 	
@@ -29,6 +36,7 @@ public class Game extends JFrame{
 	private int SuccessfulPasses;
 	private int InterceptedPasses;	
 	public static final int SIZE = 25;
+	private JTextArea result;
 	
 	private HumanPlayer selectedPlayer;
 
@@ -47,7 +55,7 @@ public class Game extends JFrame{
 		
 		topFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		topFrame.setTitle("Ultimate Frisbee Simulator v2.67   2nd Edition");
-		topFrame.setSize(1030, 525);
+		topFrame.setSize(1230, 625);
 		topFrame.setResizable(true);
 		topFrame.setVisible(true);
 		setSelectedPlayer(null);
@@ -61,16 +69,46 @@ public class Game extends JFrame{
 		//field.paintComponent(super.getGraphics());
 	
 		JPanel buttonPanel = new JPanel();
-		passButton = new JButton("Finaliz Pass");
+		passButton = new JButton("Finalize Pass");
+		passButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(selectedPlayer != null){
+					throwFrisbee(selectedPlayer);
+				}
+			}
+		});
+		newButton = new JButton("New Play");
+		newButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(selectedPlayer != null){
+					topFrame.setVisible(false);
+					Game game = new Game();
+				}
+			}
+		});
 		buttonPanel.add(passButton);
+		buttonPanel.add(newButton);
 		topFrame.add(buttonPanel, BorderLayout.SOUTH);
-	
+		
+		JPanel resultPanel = new JPanel();
+		JLabel resultLabel = new JLabel("Pass Result");
+		result = new JTextArea(1,10);
+		result.setBackground(Color.lightGray);
+		result.setEditable(false);
+		result.setLineWrap(true);
+		resultString = "Not Thrown";
+		resultPanel.add(resultLabel);
+		resultPanel.add(result);
+		topFrame.add(resultPanel, BorderLayout.EAST);
+		
+		updateDisplay();
 	
 	}
 	
-	
-	
-	
+	public void updateDisplay(){
+		result.setText(resultString);
+		repaint();
+	}
 	
 	
 	public class Field extends JPanel{
@@ -172,15 +210,16 @@ public class Game extends JFrame{
 		@Override
 		public void mouseClicked(MouseEvent arg0) { 
 			Point click = arg0.getPoint();
-			System.out.println("Getting location");
+			//System.out.println("Getting location");
 			for (HumanPlayer p : HumanPlayers){
 				if(calcDistance(p, click) < 50){
-					selectedPlayer = p;
-					updateScreen(topFrame);
-					
+					if(p != HumanPlayers.get(0)){
+						selectedPlayer = p;
+						updateScreen(topFrame);
+					}
 				}
 			}
-			System.out.println("Selected player is" + getSelectedPlayer());
+			//System.out.println("Selected player is" + getSelectedPlayer());
 		} 
 
 		@Override
@@ -313,13 +352,22 @@ public class Game extends JFrame{
     	
     	for (int i = 0; i < 5; i++) {
     		double dist = calcDistance(selectedPlayer, ComputerPlayers.get(i));
-    		if (dist < 5)
+    		if (dist < 10){
     			interception = true;
+    			System.out.println("Intercepted");
+    			resultString = "Intercepted";
+    		}
     	}
     
     	if (!interception) {
     		selectedPlayer.hasFrisbee = true;
+    		System.out.println("Not Intercepted");
+    		resultString = "Not Intercepted";
     	}
+    	System.out.println("Frisbee thrown");
+    	updateDisplay();
+    	updateScreen(topFrame);
+    	
     }
     
     public double calcDistance(HumanPlayer thrower, HumanPlayer catcher) {
